@@ -1,6 +1,4 @@
-﻿using BuildingBlocks.Abstractions.Commands;
-
-namespace Inventory.API.Products.CreateProduct;
+﻿namespace Inventory.API.Products.CreateProduct;
 
 public record CreateProductCommand(
     string Name,

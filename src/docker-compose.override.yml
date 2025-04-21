@@ -1,0 +1,27 @@
+services:
+  inventorydb:
+    container_name: inventorydb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=InventoryDb
+    restart: always
+    volumes:
+      - postgres_inventory:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  inventory.api:
+    container_name: inventory.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - "InventoryDatabaseSettings:ConnectionString=Host=localhost;Port=5432;Database=InventoryDb;Username=postgres;Password=postgres;"
+    depends_on:
+      - inventorydb
+    ports:
+      - "8080"
+      - "8081"
+volumes:
+  postgres_inventory:

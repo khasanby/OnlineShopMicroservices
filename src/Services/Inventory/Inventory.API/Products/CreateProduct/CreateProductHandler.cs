@@ -1,15 +1,8 @@
-﻿using BuildingBlocks.Abstractions.Handlers;
-using Inventory.API.Entities;
+﻿namespace Inventory.API.Products.CreateProduct;
 
-namespace Inventory.API.Products.CreateProduct;
-
-public sealed class CreateProductHandler : ICommandHandler<CreateProductCommand, CreateProductResult>
+internal sealed class CreateProductHandler(IDocumentSession documentSession)
+    : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
-    public CreateProductHandler()
-    {
-
-    }
-
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
         var product = new Product
@@ -21,8 +14,8 @@ public sealed class CreateProductHandler : ICommandHandler<CreateProductCommand,
             Price = command.Price
         };
 
-        // save product to database.
-        // return result.
+        documentSession.Store(product);
+        await documentSession.SaveChangesAsync(cancellationToken);
 
         return new CreateProductResult(product.Name);
     }

@@ -1,8 +1,4 @@
-﻿using Carter;
-using Mapster;
-using MediatR;
-
-namespace Inventory.API.Products.CreateProduct;
+﻿namespace Inventory.API.Products.CreateProduct;
 
 public sealed class CreateProductEndpoint : ICarterModule
 {
