@@ -1,6 +1,8 @@
-using Microsoft.AspNetCore.Diagnostics;
+using BuildingBlocks.Exceptions.Handlers;
 
 var builder = WebApplication.CreateBuilder(args);
+
+#region Services Configuration
 
 // Add services to the container.
 var assembly = typeof(Program).Assembly;
@@ -17,38 +19,47 @@ builder.Services.AddMarten(options =>
 }).UseLightweightSessions();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IDispatcher, Dispatcher>();
+builder.Services.AddExceptionHandler<BaseExceptionHandler>();
+
+#endregion
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.MapCarter();
 
-app.UseExceptionHandler(config =>
-{
-    config.Run(async context =>
-    {
-        context.Response.ContentType = "application/json";
+#region Exeption Handling
+app.UseExceptionHandler();
+// COMMENTED OUT FOR NOW. USING IEXCEPTIONHANDLER INSTEAD
+// IT IS RECOMMENDED TO USE IEXCEPTIONHANDLER FOR BETTER HANDLING OF EXCEPTIONS.
 
-        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
-        var (statusCode, title, errorCode) = exception switch
-        {
-            BaseException ex => (ex.StatusCode, ex.Message, ex.ErrorCode),
-            _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.", "Server.Error")
-        };
+//app.UseExceptionHandler(config =>
+//{
+//    config.Run(async context =>
+//    {
+//        context.Response.ContentType = "application/json";
 
-        context.Response.StatusCode = statusCode;
+//        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+//        var (statusCode, title, errorCode) = exception switch
+//        {
+//            BaseException ex => (ex.StatusCode, ex.Message, ex.ErrorCode),
+//            _ => (StatusCodes.Status500InternalServerError, "An unexpected error occurred.", "Server.Error")
+//        };
 
-        var problem = new
-        {
-            status = statusCode,
-            title = title,
-            errorCode = errorCode,
-            timestamp = DateTime.UtcNow
-        };
+//        context.Response.StatusCode = statusCode;
 
-        await context.Response.WriteAsJsonAsync(problem);
-    });
-});
+//        var problem = new
+//        {
+//            status = statusCode,
+//            title = title,
+//            errorCode = errorCode,
+//            timestamp = DateTime.UtcNow
+//        };
+
+//        await context.Response.WriteAsJsonAsync(problem);
+//    });
+//});
+#endregion
 
 
 app.Run();
