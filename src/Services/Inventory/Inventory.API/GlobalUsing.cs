@@ -1,6 +1,6 @@
 ﻿global using Carter;
 global using Mapster;
-global using MediatR;
+global using BuildingBlocks.CQRS.Dispatcher;
 global using Marten;
 global using Inventory.API.Entities;
 global using BuildingBlocks.CQRS.Handlers;

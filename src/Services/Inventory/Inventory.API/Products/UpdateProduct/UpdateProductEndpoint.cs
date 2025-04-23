@@ -5,10 +5,10 @@ public sealed class UpdateProductEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPut("/products/{name:string}",
-            async (Guid id, UpdateProductRequest request, ISender sender) =>
+            async (Guid id, UpdateProductRequest request, IDispatcher dispatcher) =>
             {
                 UpdateProductCommand command = request.Adapt<UpdateProductCommand>();
-                UpdateProductResult result = await sender.Send(command);
+                UpdateProductResult result = await dispatcher.Send(command);
                 UpdateProductResponse response = result.Adapt<UpdateProductResponse>();
 
                 return Results.Ok(response);

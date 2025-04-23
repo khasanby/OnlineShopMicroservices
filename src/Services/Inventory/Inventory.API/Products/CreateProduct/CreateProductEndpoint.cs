@@ -5,10 +5,10 @@ public sealed class CreateProductEndpoint : ICarterModule
     public void AddRoutes(IEndpointRouteBuilder app)
     {
         app.MapPost("/products",
-            async (CreateProductRequest request, ISender sender) =>
+            async (CreateProductRequest request, IDispatcher dispatcher) =>
             {
                 CreateProductCommand command = request.Adapt<CreateProductCommand>();
-                CreateProductResult result = await sender.Send(command);
+                CreateProductResult result = await dispatcher.Send(command);
                 CreateProductResponse response = result.Adapt<CreateProductResponse>();
 
                 return Results.Created($"/products/{result.Name}", response);
