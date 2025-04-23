@@ -5,28 +5,27 @@ internal sealed class CreateProductHandler
 {
     private readonly IDocumentSession _documentSession;
     private readonly ILogger<CreateProductHandler> _logger;
-    private readonly IValidator<CreateProductCommand> _validator;
+    //private readonly IValidator<CreateProductCommand> _validator;
 
-    public CreateProductHandler(IDocumentSession documentSession, ILogger<CreateProductHandler> logger, IValidator<CreateProductCommand> validator)
+    public CreateProductHandler(IDocumentSession documentSession, ILogger<CreateProductHandler> logger)
     {
         _documentSession = documentSession;
         _logger = logger;
-        _validator = validator;
     }
 
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Creating product with name: {Name}", command.Name);
-        ValidationResult validationResult = await _validator.ValidateAsync(command, cancellationToken);
-        if (!validationResult.IsValid)
-        {
-            var errors = validationResult.Errors
-                .Select(e => new ValidationFailure(e.PropertyName, e.ErrorMessage))
-                .ToList();
-            _logger.LogWarning("Validation failed for command: {Command}", command);
-            _logger.LogWarning("Validation errors: {Errors}", errors);
-            throw new ValidationException(validationResult.Errors);
-        }
+        //ValidationResult validationResult = await _validator.ValidateAsync(command, cancellationToken);
+        //if (!validationResult.IsValid)
+        //{
+        //    var errors = validationResult.Errors
+        //        .Select(e => new ValidationFailure(e.PropertyName, e.ErrorMessage))
+        //        .ToList();
+        //    _logger.LogWarning("Validation failed for command: {Command}", command);
+        //    _logger.LogWarning("Validation errors: {Errors}", errors);
+        //    throw new ValidationException(validationResult.Errors);
+        //}
 
         var product = new Product
         {
