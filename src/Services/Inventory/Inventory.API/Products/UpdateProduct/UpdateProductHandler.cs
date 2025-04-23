@@ -1,16 +1,23 @@
-﻿using Inventory.API.Infrastructure.Exceptions;
+﻿namespace Inventory.API.Products.UpdateProduct;
 
-namespace Inventory.API.Products.UpdateProduct;
-
-internal sealed class UpdateProductHandler(IDocumentSession session, ILogger<UpdateProductHandler> logger)
+internal sealed class UpdateProductHandler
     : ICommandHandler<UpdateProductCommand, UpdateProductResult>
 {
+    private readonly IDocumentSession _session;
+    private readonly ILogger<UpdateProductHandler> _logger;
+
+    public UpdateProductHandler(IDocumentSession session, ILogger<UpdateProductHandler> logger)
+    {
+        _session = session;
+        _logger = logger;
+    }
+
     public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
     {
-        var product = await session.LoadAsync<Product>(command.Name);
+        var product = await _session.LoadAsync<Product>(command.Name);
         if (product is null)
         {
-            logger.LogWarning($"Product with ID {command.Name} not found");
+            _logger.LogWarning($"Product with ID {command.Name} not found");
             throw new ProductNotFoundException(command.Name);
         }
 
@@ -20,8 +27,8 @@ internal sealed class UpdateProductHandler(IDocumentSession session, ILogger<Upd
         product.ImageFilePath = command.ImageFilePath;
         product.Price = command.Price;
 
-        session.Store(product);
-        await session.SaveChangesAsync(cancellationToken);
+        _session.Store(product);
+        await _session.SaveChangesAsync(cancellationToken);
 
         return new UpdateProductResult(true);
     }

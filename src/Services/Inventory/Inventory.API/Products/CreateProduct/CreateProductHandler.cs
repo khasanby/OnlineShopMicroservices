@@ -1,10 +1,33 @@
 ﻿namespace Inventory.API.Products.CreateProduct;
 
-internal sealed class CreateProductHandler(IDocumentSession documentSession)
+internal sealed class CreateProductHandler
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
+    private readonly IDocumentSession _documentSession;
+    private readonly ILogger<CreateProductHandler> _logger;
+    private readonly IValidator<CreateProductCommand> _validator;
+
+    public CreateProductHandler(IDocumentSession documentSession, ILogger<CreateProductHandler> logger, IValidator<CreateProductCommand> validator)
+    {
+        _documentSession = documentSession;
+        _logger = logger;
+        _validator = validator;
+    }
+
     public async Task<CreateProductResult> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
+        _logger.LogInformation("Creating product with name: {Name}", command.Name);
+        ValidationResult validationResult = await _validator.ValidateAsync(command, cancellationToken);
+        if (!validationResult.IsValid)
+        {
+            var errors = validationResult.Errors
+                .Select(e => new ValidationFailure(e.PropertyName, e.ErrorMessage))
+                .ToList();
+            _logger.LogWarning("Validation failed for command: {Command}", command);
+            _logger.LogWarning("Validation errors: {Errors}", errors);
+            throw new ValidationException(validationResult.Errors);
+        }
+
         var product = new Product
         {
             Name = command.Name,
@@ -14,8 +37,8 @@ internal sealed class CreateProductHandler(IDocumentSession documentSession)
             Price = command.Price
         };
 
-        documentSession.Store(product);
-        await documentSession.SaveChangesAsync(cancellationToken);
+        _documentSession.Store(product);
+        await _documentSession.SaveChangesAsync(cancellationToken);
 
         return new CreateProductResult(product.Name);
     }

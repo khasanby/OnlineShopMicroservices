@@ -1,4 +1,4 @@
-using Carter;
+using BuildingBlocks.CQRS.Dispatcher;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +9,8 @@ builder.Services.AddMarten(options =>
 {
     options.Connection(builder.Configuration.GetConnectionString("InventoryDb"));
 }).UseLightweightSessions();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<IDispatcher, Dispatcher>();
 
 var app = builder.Build();
 

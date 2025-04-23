@@ -7,14 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Carter" Version="8.2.1" />
-    <PackageReference Include="Mapster" Version="7.4.0" />
-    <PackageReference Include="MediatR" Version="12.5.0" />
+    <Compile Remove="CQRS\Results\**" />
+    <EmbeddedResource Remove="CQRS\Results\**" />
+    <None Remove="CQRS\Results\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Abstractions\Dispatcher\" />
-    <Folder Include="Abstractions\Results\" />
+    <PackageReference Include="Carter" Version="8.2.1" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
 </Project>

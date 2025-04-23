@@ -1,6 +1,6 @@
 ﻿namespace Inventory.API.Products.CreateProduct;
 
-public record CreateProductCommand(
+public sealed record CreateProductCommand(
     string Name,
     List<string> Tags,
     string Description,
@@ -8,4 +8,4 @@ public record CreateProductCommand(
     decimal Price
 ) : ICommand<CreateProductResult>;
 
-public record CreateProductResult(string Name);
+public sealed record CreateProductResult(string Name);

@@ -1,7 +1,7 @@
-﻿using BuildingBlocks.Abstractions.Commands;
+﻿using BuildingBlocks.CQRS.Commands;
 using MediatR;
 
-namespace BuildingBlocks.Abstractions.Handlers;
+namespace BuildingBlocks.CQRS.Handlers;
 
 /// <summary>
 /// The command handler interface. In case we don't need a response, we can use the <see cref="Unit"/> type.
