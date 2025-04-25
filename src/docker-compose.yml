@@ -1,6 +1,9 @@
 services:
   inventorydb:
     image: postgres
+
+  cartDb:
+    image: postgres
   
   inventory.api:
     image: ${DOCKER_REGISTRY-}inventoryapi
@@ -8,5 +11,11 @@ services:
       context: .
       dockerfile: Services/Inventory/Inventory.API/Dockerfile
 
+  cart.api:
+    image: ${DOCKER_REGISTRY-}cartapi
+    build:
+      context: .
+      dockerfile: Services/Cart/Cart.API/Dockerfile
+
 volumes:
-    postgres_inventory:    
+    postgres_inventory:

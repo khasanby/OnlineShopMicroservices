@@ -10,6 +10,18 @@ services:
       - "5432:5432"
     volumes:
       - postgres_inventory:/var/lib/postgresql/data
+
+  cartdb:
+    container_name: cartdb
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=CartDb
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_inventory:/var/lib/postgresql/data
   
   inventory.api:
     container_name: inventory.api
@@ -23,6 +35,22 @@ services:
     ports:
       - "6000:8080" # Exposed port for HTTP is 6000 and mapped to 8080 in the container.
       - "6060:8081" # Exposed port for HTTPS is 6060 and mapped to 8081 in the container.
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/ASP.NET/Https:/home/app/.microsoft/https:ro
+  
+  cart.api:
+    container_name: cart.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - "ConnectionStrings_Database=Server=cartdb;Port=5432;Database=CartDb;User Id=postgres;Password=postgres;Include Error Detail=true"
+    depends_on:
+      - cartdb
+    ports:
+      - "6001:8080" # Exposed port for HTTP is 6000 and mapped to 8080 in the container.
+      - "6061:8081" # Exposed port for HTTPS is 6060 and mapped to 8081 in the container.
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/Microsoft/ASP.NET/Https:/home/app/.microsoft/https:ro 
