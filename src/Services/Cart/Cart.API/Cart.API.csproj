@@ -14,4 +14,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Cart\CheckoutCart\" />
+    <Folder Include="Cart\DeleteCart\" />
+    <Folder Include="Cart\GetCart\" />
+    <Folder Include="Cart\StoreCart\" />
+    <Folder Include="Data\" />
+    <Folder Include="GrpcServices\" />
+    <Folder Include="Protos\" />
+  </ItemGroup>
+
 </Project>
