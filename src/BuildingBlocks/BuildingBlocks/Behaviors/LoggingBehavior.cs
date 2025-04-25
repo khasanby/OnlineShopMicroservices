@@ -21,7 +21,7 @@ public sealed class LoggingBehavior<TRequest, TResponse>
         var attr = request.GetType().GetCustomAttribute<BuildingBlocks.Logging.Attributes.LogBehaviorAttribute>();
         if (attr is not null)
         {
-            var strategy = _strategyFactory.Get(attr.LogType);
+            var strategy = _strategyFactory.Get(attr.logType);
             strategy.Log(_logger, "Handling request", request);
         }
 

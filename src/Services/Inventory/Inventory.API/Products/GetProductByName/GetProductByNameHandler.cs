@@ -1,7 +1,7 @@
 ﻿namespace Inventory.API.Products.GetProductByName;
 
 internal sealed class GetProductByNameHandler
-    : IQueryHandler<GetProductByNameQuery, GetProductByIdResult>
+    : IQueryHandler<GetProductByNameQuery, GetProductByNameResult>
 {
     private readonly IDocumentSession _session;
     private readonly ILogger<GetProductByNameHandler> _logger;
@@ -12,22 +12,22 @@ internal sealed class GetProductByNameHandler
         _logger = logger;
     }
 
-    public async Task<GetProductByNameResult> Handle(GetProductByNameQuery request, CancellationToken cancellationToken)
+    public async Task<GetProductByNameResult> Handle(GetProductByNameQuery query, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Handling {QueryName}", nameof(GetProductByNameQuery));
-        Product? product = await _session.LoadAsync<Product>(request.productName, cancellationToken);
+        Product? product = await _session.LoadAsync<Product>(query.productName, cancellationToken);
 
         if (product is null)
         {
-            _logger.LogWarning("Product with id {Name} not found", request.productName);
-            throw new ProductNotFoundException($"Product with name {request.productName} not found.");
+            _logger.LogWarning("Product with id {Name} not found", query.productName);
+            throw new ProductNotFoundException($"Product with name {query.productName} not found.");
         }
         else
         {
-            _logger.LogInformation("Product with name {Name} found", request.productName);
+            _logger.LogInformation("Product with name {Name} found", query.productName);
         }
 
         return new GetProductByNameResult(product)
-            ?? throw new ProductNotFoundException($"Product with name {request.productName} not found.");
+            ?? throw new ProductNotFoundException($"Product with name {query.productName} not found.");
     }
 }
