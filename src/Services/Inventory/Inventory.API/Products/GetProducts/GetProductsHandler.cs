@@ -12,10 +12,12 @@ internal sealed class GetProductsHandler
         _logger = logger;
     }
 
-    public async Task<GetProductsResult> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+    public async Task<GetProductsResult> Handle(GetProductsQuery query, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Handling {QueryName}", nameof(GetProductsQuery));
-        IReadOnlyList<Product> products = await _session.Query<Product>().ToListAsync(cancellationToken);
+        IPagedList<Product> products = await 
+            _session.Query<Product>()
+                    .ToPagedListAsync(query.PageNumber ?? 1, query.PageSize ?? 10, cancellationToken);
 
         return new GetProductsResult(products);
     }

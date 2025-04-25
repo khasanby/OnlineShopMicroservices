@@ -12,3 +12,4 @@ global using Inventory.API.Infrastructure.Exceptions;
 global using BuildingBlocks.Logging.Attributes;
 global using BuildingBlocks.Logging.Enums;
 global using BuildingBlocks.Behaviors;
+global using Marten.Pagination;
