@@ -1,0 +1,6 @@
+@Cart.API_HostAddress = http://localhost:5245
+
+GET {{Cart.API_HostAddress}}/api/
+Accept: application/json
+
+###
