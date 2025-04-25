@@ -1,4 +1,4 @@
-﻿namespace Inventory.API.Infrastructure.Exceptions;
+﻿namespace Inventory.API.Exceptions;
 
 public sealed class ProductNotFoundException : BaseException
 {
