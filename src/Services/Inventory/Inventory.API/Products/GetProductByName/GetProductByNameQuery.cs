@@ -1,5 +1,5 @@
 ﻿namespace Inventory.API.Products.GetProductByName;
 
-public record GetProductByNameQuery(Guid Id) : IQuery<GetProductByIdResult>;
+public record GetProductByNameQuery(string productName) : IQuery<GetProductByNameResult>;
 
-public record GetProductByIdResult(Product Product);
+public record GetProductByNameResult(Product Product);

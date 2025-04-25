@@ -1,6 +1,6 @@
 ﻿namespace Inventory.API.Products.CreateProduct;
 
-internal sealed class CreateProductHandler
+public sealed class CreateProductHandler
     : ICommandHandler<CreateProductCommand, CreateProductResult>
 {
     private readonly IDocumentSession _documentSession;

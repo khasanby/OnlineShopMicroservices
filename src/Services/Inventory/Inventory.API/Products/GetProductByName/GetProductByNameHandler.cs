@@ -12,22 +12,22 @@ internal sealed class GetProductByNameHandler
         _logger = logger;
     }
 
-    public async Task<GetProductByIdResult> Handle(GetProductByNameQuery request, CancellationToken cancellationToken)
+    public async Task<GetProductByNameResult> Handle(GetProductByNameQuery request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Handling {QueryName}", nameof(GetProductByNameQuery));
-        Product? product = await _session.LoadAsync<Product>(request.Id, cancellationToken);
+        Product? product = await _session.LoadAsync<Product>(request.productName, cancellationToken);
 
         if (product is null)
         {
-            _logger.LogWarning("Product with id {Id} not found", request.Id);
-            throw new ProductNotFoundException($"Product with id {request.Id} not found.");
+            _logger.LogWarning("Product with id {Name} not found", request.productName);
+            throw new ProductNotFoundException($"Product with name {request.productName} not found.");
         }
         else
         {
-            _logger.LogInformation("Product with id {Id} found", request.Id);
+            _logger.LogInformation("Product with name {Name} found", request.productName);
         }
 
-        return new GetProductByIdResult(product)
-            ?? throw new ProductNotFoundException($"Product with id {request.Id} not found.");
+        return new GetProductByNameResult(product)
+            ?? throw new ProductNotFoundException($"Product with name {request.productName} not found.");
     }
 }
