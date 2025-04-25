@@ -1,4 +1,6 @@
 using BuildingBlocks.Exceptions.Handlers;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,10 @@ builder.Services.AddMarten(options =>
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IDispatcher, Dispatcher>();
 builder.Services.AddExceptionHandler<BaseExceptionHandler>();
+
+// Healhchecks.
+builder.Services.AddHealthChecks()
+                .AddNpgSql(builder.Configuration.GetConnectionString("InventoryDb"));
 
 #endregion
 
@@ -61,5 +67,11 @@ app.UseExceptionHandler();
 //});
 #endregion
 
+
+app.UseHealthChecks("/health",
+    new HealthCheckOptions
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
 
 app.Run();
