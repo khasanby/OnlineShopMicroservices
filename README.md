@@ -1,6 +1,6 @@
 # OnlineShopMicroservices
 
-########################################################################################################
+
 📦 Inventory.API
 Inventory.API is a microservice responsible for managing product-related data within the system. It is built using the Vertical Slice Architecture combined with the CQRS (Command Query Responsibility Segregation) pattern to ensure a clear separation of concerns, modularity, and scalability.
 
@@ -20,7 +20,7 @@ The service is containerized using Docker and communicates with a PostgreSQL dat
 🧪 Extensible for integration with messaging systems like RabbitMQ or MassTransit (if needed later).
 
 
-########################################################################################################
+
 🛒 CartAPI - Shopping Cart Service
 The CartAPI is a lightweight, high-performance microservice designed to manage users' shopping carts within the OnlineShopMicroservices system.
 
