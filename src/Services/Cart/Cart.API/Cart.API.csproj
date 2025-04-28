@@ -15,6 +15,7 @@
 	<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
 	<PackageReference Include="Marten" Version="7.40.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Scrutor" Version="6.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
@@ -24,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Cart.Application\Cart.Application.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+    <ProjectReference Include="..\Cart.Domain\Cart.Domain.csproj" />
   </ItemGroup>
 
 </Project>

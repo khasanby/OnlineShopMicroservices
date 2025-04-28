@@ -1,4 +1,9 @@
-﻿namespace Cart.API.Data;
+﻿using Cart.Application.Exceptions;
+using Cart.Domain.Data;
+using Cart.Domain.Entities;
+using Marten;
+
+namespace Cart.Application.DataAccess;
 
 public class CartRepository : ICartRepository
 {

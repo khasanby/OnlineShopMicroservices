@@ -1,4 +1,6 @@
-﻿namespace Cart.API.Exceptions;
+﻿using BuildingBlocks.Exceptions;
+
+namespace Cart.Application.Exceptions;
 
 public sealed class CartNotFoundException : BaseException
 {

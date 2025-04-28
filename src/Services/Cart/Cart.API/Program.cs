@@ -1,6 +1,11 @@
 using BuildingBlocks.Behaviors;
+using Cart.Application.DataAccess;
+using Cart.Application.Decorators;
+using Cart.Domain.Data;
+using Cart.Domain.Entities;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +26,21 @@ builder.Services.AddMarten(opts =>
 }).UseLightweightSessions();
 
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.Decorate<ICartRepository, CacheCartRepositoryDecorator>();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
+    options.InstanceName = "CartCache";
+});
+
+// Manually register the cache decorator.
+//builder.Services.AddScoped<ICartRepository>(provider =>
+//{
+//    CartRepository cartRepository = provider.GetRequiredService<CartRepository>();
+//    IDistributedCache cache = provider.GetRequiredService<IDistributedCache>();
+
+//    return new CacheCartRepositoryDecorator(cartRepository, cache);
+//});
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(builder.Configuration.GetConnectionString("CartDb")!);
