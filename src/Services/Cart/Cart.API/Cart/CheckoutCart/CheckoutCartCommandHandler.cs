@@ -1,6 +1,5 @@
 ﻿using Cart.API.Cart.CheckoutCart.Models;
-using Cart.API.Data;
-using Mapster;
+using Cart.Domain.Data;
 
 namespace Cart.API.Cart.CheckoutCart;
 

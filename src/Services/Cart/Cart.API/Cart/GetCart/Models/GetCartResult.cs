@@ -1,4 +1,6 @@
-﻿namespace Cart.API.Cart.GetCart.Models;
+﻿using Cart.Domain.Entities;
+
+namespace Cart.API.Cart.GetCart.Models;
 
 /// <summary>
 /// Result of the GetCart operation.

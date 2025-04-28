@@ -29,9 +29,14 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.Decorate<ICartRepository, CacheCartRepositoryDecorator>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
-    options.Configuration = builder.Configuration.GetConnectionString("Redis")!;
+    options.Configuration = builder.Configuration.GetConnectionString("CacheDb")!;
     options.InstanceName = "CartCache";
 });
+
+// Healhchecks.
+builder.Services.AddHealthChecks()
+                .AddNpgSql(builder.Configuration.GetConnectionString("CartDb")!)
+                .AddNpgSql(builder.Configuration.GetConnectionString("CacheDb")!);
 
 // Manually register the cache decorator.
 //builder.Services.AddScoped<ICartRepository>(provider =>

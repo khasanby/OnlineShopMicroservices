@@ -1,4 +1,6 @@
-﻿namespace Inventory.API.Products.UpdateProduct;
+﻿using Inventory.API.Exceptions;
+
+namespace Inventory.API.Products.UpdateProduct;
 
 internal sealed class UpdateProductHandler
     : ICommandHandler<UpdateProductCommand, UpdateProductResult>

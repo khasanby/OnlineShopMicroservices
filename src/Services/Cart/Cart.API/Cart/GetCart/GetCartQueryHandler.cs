@@ -1,4 +1,5 @@
 ﻿using Cart.API.Cart.GetCart.Models;
+using Cart.Domain.Data;
 
 namespace Cart.API.Cart.GetCart;
 

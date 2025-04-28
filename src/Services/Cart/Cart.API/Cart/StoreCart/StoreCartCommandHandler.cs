@@ -1,4 +1,5 @@
 ﻿using Cart.API.Cart.StoreCart.Models;
+using Cart.Domain.Data;
 
 namespace Cart.API.Cart.StoreCart;
 

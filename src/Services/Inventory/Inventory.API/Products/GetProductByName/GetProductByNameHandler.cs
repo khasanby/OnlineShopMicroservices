@@ -1,4 +1,6 @@
-﻿namespace Inventory.API.Products.GetProductByName;
+﻿using Inventory.API.Exceptions;
+
+namespace Inventory.API.Products.GetProductByName;
 
 internal sealed class GetProductByNameHandler
     : IQueryHandler<GetProductByNameQuery, GetProductByNameResult>

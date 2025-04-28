@@ -1,4 +1,6 @@
-﻿namespace Cart.API.Cart.StoreCart.Models;
+﻿using Cart.Domain.Entities;
+
+namespace Cart.API.Cart.StoreCart.Models;
 
 /// <summary>
 /// Represents a command to store a shopping cart.
