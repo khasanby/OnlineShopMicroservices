@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Coupon.Migrations": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}

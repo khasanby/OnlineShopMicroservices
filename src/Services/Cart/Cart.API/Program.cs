@@ -5,7 +5,6 @@ using Cart.Domain.Data;
 using Cart.Domain.Entities;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 

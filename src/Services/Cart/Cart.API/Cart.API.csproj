@@ -21,13 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GrpcServices\" />
-    <Folder Include="Protos\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Cart.Application\Cart.Application.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\BuildingBlocks\BuildingBlocks.csproj" />
+    <ProjectReference Include="..\Cart.Application\Cart.Application.csproj" />
     <ProjectReference Include="..\Cart.Domain\Cart.Domain.csproj" />
   </ItemGroup>
 
