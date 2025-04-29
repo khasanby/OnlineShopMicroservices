@@ -12,10 +12,12 @@ public abstract class BaseException : Exception
     /// </summary>
     public virtual int StatusCode { get; }
 
-    protected BaseException(string message) : base(message)
+    protected BaseException() { }
+
+    protected BaseException(string? message) : base(message)
     { }
 
-    protected BaseException(string message, Exception innerException)
+    protected BaseException(string? message, Exception innerException)
         : base(message, innerException)
     { }
 }

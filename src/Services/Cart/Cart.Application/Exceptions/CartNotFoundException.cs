@@ -7,13 +7,10 @@ public sealed class CartNotFoundException : BaseException
     public override string ErrorCode => "NOT_FOUND";
     public override int StatusCode => 404;
 
-    public CartNotFoundException(string errorName)
-        : base(errorName)
-    {
-    }
+    public CartNotFoundException() { }
 
-    public CartNotFoundException(string entityName, object key)
-        : base($"{entityName} with ID '{key}' was not found.")
-    {
-    }
+    public CartNotFoundException(string? message) : base(message) { }
+
+    public CartNotFoundException(string? message, Exception innerException)
+        : base(message, innerException) { }
 }
