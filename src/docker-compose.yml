@@ -20,6 +20,12 @@ services:
       context: .
       dockerfile: Services/Cart/Cart.API/Dockerfile
 
+  coupon.grpc:
+    image: ${DOCKER_REGISTRY-}coupongrpc
+    build:
+      context: .
+      dockerfile: Services/Coupon/Coupon.Grpc/Dockerfile
+
 volumes:
     postgres_inventory:
     postgres_cart:

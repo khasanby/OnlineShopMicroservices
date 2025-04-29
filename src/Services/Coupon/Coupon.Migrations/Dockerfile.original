@@ -11,9 +11,6 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Coupon/Coupon.Migrations/Coupon.Migrations.csproj", "Services/Coupon/Coupon.Migrations/"]
-COPY ["Services/Coupon/Coupon.Domain/Coupon.Domain.csproj", "Services/Coupon/Coupon.Domain/"]
-COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
-COPY ["Services/Coupon/Coupon.Infrastructure/Coupon.Infrastructure.csproj", "Services/Coupon/Coupon.Infrastructure/"]
 RUN dotnet restore "./Services/Coupon/Coupon.Migrations/Coupon.Migrations.csproj"
 COPY . .
 WORKDIR "/src/Services/Coupon/Coupon.Migrations"

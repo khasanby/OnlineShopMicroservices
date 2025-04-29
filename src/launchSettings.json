@@ -4,7 +4,8 @@
       "commandName": "DockerCompose",
       "commandVersion": "1.0",
       "serviceActions": {
-        "inventory.api": "StartDebugging"
+        "inventory.api": "StartDebugging",
+        "coupon.grpc": "StartDebugging"
       }
     }
   }
