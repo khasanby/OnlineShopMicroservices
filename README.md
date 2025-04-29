@@ -66,3 +66,40 @@ Blazing fast cart operations through caching.
 Decoupled, scalable architecture through messaging.
 
 Smooth user experience with real-time cart management.
+
+
+## 🎟️ Coupon.Grpc - Discount Service
+The Coupon.Grpc microservice is responsible for managing discount-related operations in the OnlineShopMicroservices system. It exposes gRPC endpoints to provide high-performance, contract-based communication between services.
+
+### ✨ Core Features
+gRPC Communication: Efficient service-to-service communication using Protocol Buffers (.proto definitions).
+
+Vertical N-Layer Architecture: Clean separation of concerns (UI, Business, Data Access) within a structured, maintainable layout.
+
+Entity Framework Core + SQLite: Lightweight relational database used with EF Core for persistence during development or small-scale use.
+
+Dockerized: Packaged in a Docker container for seamless deployment and environment consistency.
+
+Designed for Internal Access: Optimized for internal communication with other services through internal IP and ports.
+
+### 🛠️ Technology Stack
+ASP.NET Core gRPC
+
+Entity Framework Core
+
+SQLite (Development)
+
+Docker
+
+### 🚀 Architecture Overview
+The client communicates with the service via gRPC over internal/external IPs and ports.
+
+.proto files define the service contract.
+
+Inside the service:
+
+The request flows through the Application layer (UI, Business, Data Access).
+
+EF Core handles persistence using SQLite.
+
+The entire service runs inside a Docker container.
