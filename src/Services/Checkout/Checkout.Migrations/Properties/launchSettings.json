@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Checkout.Migrations": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
