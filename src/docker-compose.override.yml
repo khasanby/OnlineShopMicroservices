@@ -53,9 +53,11 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - "ConnectionStrings_Database=Server=cartdb;Port=5432;Database=CartDb;User Id=postgres;Password=postgres;Include Error Detail=true"
       - "ConnectionString_Redis=distributedcache:6379"
+      - "GrpcSettings_CouponUrl=http://coupon.grpc:8081"
     depends_on:
       - cartdb
       - distributedcache
+      - coupon.grpc
     ports:
       - "6001:8080" # Exposed port for HTTP is 6000 and mapped to 8080 in the container.
       - "6061:8081" # Exposed port for HTTPS is 6060 and mapped to 8081 in the container.
