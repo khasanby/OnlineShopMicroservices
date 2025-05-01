@@ -3,12 +3,15 @@ using Cart.Application.DataAccess;
 using Cart.Application.Decorators;
 using Cart.Domain.Data;
 using Cart.Domain.Entities;
+using Coupon.Grpc;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Application Services.
 var assembly = typeof(Program).Assembly;
 builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
@@ -18,18 +21,24 @@ builder.Services.AddMediatR(config =>
     config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
+// Data Services.
 builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
     opts.Schema.For<ShoppingCart>().Identity(x => x.Username);
 }).UseLightweightSessions();
-
 builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.Decorate<ICartRepository, CacheCartRepositoryDecorator>();
 builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration.GetConnectionString("CacheDb")!;
     options.InstanceName = "CartCache";
+});
+
+// GRPC Services.
+builder.Services.AddGrpcClient<CouponProtoService.CouponProtoServiceClient>(options =>
+{
+    options.Address = new Uri(builder.Configuration["GrpcServices:CouponUrl"]);
 });
 
 // Healhchecks.
