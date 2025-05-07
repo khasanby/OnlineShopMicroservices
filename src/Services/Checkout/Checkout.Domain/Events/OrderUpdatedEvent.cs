@@ -7,4 +7,4 @@ namespace Checkout.Domain.Events;
 /// Represents an event that is triggered when an order is updated.
 /// </summary>
 /// <param name="Order"></param>
-public sealed record OrderUpdatedEvent(OrderDb Order) : IDomainEvent;
+public sealed record OrderUpdatedEvent(OrderDB Order) : IDomainEvent;

@@ -1,10 +1,11 @@
 ﻿using BuildingBlocks.CQRS.Handlers;
 using Checkout.Application.Models;
 using Checkout.Application.Orders.CreateOrder.Models;
+using Checkout.Domain.DataAccess;
 
 namespace Checkout.Application.Orders.CreateOrder;
 
-public sealed class CreateOrderHandler(IApplicationDbContext dbContext)
+public sealed class CreateOrderHandler(ICheckoutDbContext dbContext)
     : ICommandHandler<CreateOrderCommand, CreateOrderResult>
 {
     public async Task<CreateOrderResult> Handle(CreateOrderCommand command, CancellationToken cancellationToken)

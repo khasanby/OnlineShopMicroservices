@@ -5,7 +5,7 @@ using Checkout.Domain.ValueObjects;
 
 namespace Checkout.Domain.Entities;
 
-public sealed class OrderDb : Aggregate<OrderId>
+public sealed class OrderDB : Aggregate<OrderId>
 {
     /// <summary>
     /// Private field to store the list of order items associated with the order.
@@ -60,9 +60,9 @@ public sealed class OrderDb : Aggregate<OrderId>
     /// <summary>
     /// Creates a new instance of the OrderDb class with the specified details.
     /// </summary>
-    public static OrderDb Create(OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+    public static OrderDB Create(OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
     {
-        var order = new OrderDb
+        var order = new OrderDB
         {
             Id = id,
             CustomerId = customerId,

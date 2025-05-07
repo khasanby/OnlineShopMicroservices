@@ -7,4 +7,4 @@ namespace Checkout.Domain.Events;
 /// Represents an event that occurs when an order is created.
 /// </summary>
 /// <param name="Order"></param>
-public sealed record OrderCreatedEvent(OrderDb Order) : IDomainEvent;
+public sealed record OrderCreatedEvent(OrderDB Order) : IDomainEvent;
