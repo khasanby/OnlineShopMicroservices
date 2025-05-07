@@ -1,4 +1,4 @@
-﻿namespace Checkout.Domain.Base;
+﻿namespace Checkout.Domain.Abstractions.Base;
 
 public interface IEntity<TId> : IEntity
 {

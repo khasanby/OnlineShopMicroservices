@@ -1,4 +1,4 @@
-﻿using Checkout.Domain.Base;
+﻿using Checkout.Domain.Abstractions.Base;
 
 namespace Checkout.Domain.Abstractions;
 

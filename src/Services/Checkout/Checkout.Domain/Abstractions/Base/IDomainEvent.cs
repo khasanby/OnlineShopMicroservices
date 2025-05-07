@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Checkout.Domain.Base;
+namespace Checkout.Domain.Abstractions.Base;
 
 public interface IDomainEvent : INotification
 {
@@ -17,5 +17,5 @@ public interface IDomainEvent : INotification
     /// <summary>
     /// Gets the type of the event.
     /// </summary>
-    public string EventType => GetType().AssemblyQualifiedName;
+    public string? EventType => GetType().AssemblyQualifiedName;
 }

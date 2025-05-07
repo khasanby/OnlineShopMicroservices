@@ -1,4 +1,4 @@
-﻿using Checkout.Domain.Base;
+﻿using Checkout.Domain.Abstractions.Base;
 using Checkout.Domain.Entities;
 
 namespace Checkout.Domain.Events;
