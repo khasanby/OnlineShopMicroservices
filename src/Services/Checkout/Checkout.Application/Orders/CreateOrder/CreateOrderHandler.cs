@@ -2,6 +2,8 @@
 using Checkout.Application.Models;
 using Checkout.Application.Orders.CreateOrder.Models;
 using Checkout.Domain.DataAccess;
+using Checkout.Domain.Entities;
+using Checkout.Domain.ValueObjects;
 
 namespace Checkout.Application.Orders.CreateOrder;
 
@@ -14,21 +16,21 @@ public sealed class CreateOrderHandler(ICheckoutDbContext dbContext)
         dbContext.Orders.Add(order);
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return new CreateOrderResult(order.Id.Value);
+        return new CreateOrderResult(new Guid());
     }
 
-    private Order CreateNewOrder(OrderDto orderDto)
+    private OrderDB CreateNewOrder(Order orderDto)
     {
-        var shippingAddress = Address.Of(orderDto.ShippingAddress.FirstName, orderDto.ShippingAddress.LastName, orderDto.ShippingAddress.EmailAddress, orderDto.ShippingAddress.AddressLine, orderDto.ShippingAddress.Country, orderDto.ShippingAddress.State, orderDto.ShippingAddress.ZipCode);
-        var billingAddress = Address.Of(orderDto.BillingAddress.FirstName, orderDto.BillingAddress.LastName, orderDto.BillingAddress.EmailAddress, orderDto.BillingAddress.AddressLine, orderDto.BillingAddress.Country, orderDto.BillingAddress.State, orderDto.BillingAddress.ZipCode);
+        var shippingAddress = Domain.ValueObjects.Address.Of(orderDto.ShippingAddress.FirstName, orderDto.ShippingAddress.LastName, orderDto.ShippingAddress.EmailAddress, orderDto.ShippingAddress.AddressLine, orderDto.ShippingAddress.Country, orderDto.ShippingAddress.State, orderDto.ShippingAddress.ZipCode);
+        var billingAddress = Domain.ValueObjects.Address.Of(orderDto.BillingAddress.FirstName, orderDto.BillingAddress.LastName, orderDto.BillingAddress.EmailAddress, orderDto.BillingAddress.AddressLine, orderDto.BillingAddress.Country, orderDto.BillingAddress.State, orderDto.BillingAddress.ZipCode);
 
-        var newOrder = Order.Create(
+        var newOrder = OrderDB.Create(
                 id: OrderId.Of(Guid.NewGuid()),
                 customerId: CustomerId.Of(orderDto.CustomerId),
                 orderName: OrderName.Of(orderDto.OrderName),
                 shippingAddress: shippingAddress,
                 billingAddress: billingAddress,
-                payment: Payment.Of(orderDto.Payment.CardName, orderDto.Payment.CardNumber, orderDto.Payment.Expiration, orderDto.Payment.Cvv, orderDto.Payment.PaymentMethod)
+                payment: Domain.ValueObjects.Payment.Of(orderDto.Payment.CardName, orderDto.Payment.CardNumber, orderDto.Payment.Expiration, orderDto.Payment.Cvv, orderDto.Payment.PaymentMethod)
                 );
 
         foreach (var orderItemDto in orderDto.OrderItems)

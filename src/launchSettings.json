@@ -5,7 +5,8 @@
       "commandVersion": "1.0",
       "serviceActions": {
         "inventory.api": "StartDebugging",
-        "coupon.grpc": "StartDebugging"
+        "coupon.grpc": "StartDebugging",
+        "checkout.migrations": "StartDebugging"
       }
     }
   }

@@ -26,6 +26,13 @@ services:
       context: .
       dockerfile: Services/Coupon/Coupon.Grpc/Dockerfile
 
+  checkout.migrations:
+    image: ${DOCKER_REGISTRY-}checkoutmigrations
+    build:
+      context: .
+      dockerfile: Services/Checkout/Checkout.Migrations/Dockerfile
+
 volumes:
     postgres_inventory:
     postgres_cart:
+

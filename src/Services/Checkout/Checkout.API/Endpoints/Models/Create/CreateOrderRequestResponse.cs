@@ -5,7 +5,7 @@ namespace Checkout.API.Endpoints.Models.Create;
 /// <summary>
 /// Represents the response for creating an order.
 /// </summary>
-public sealed record CreateOrderRequestResponse(Order Order);
+public sealed record CreateOrderRequest(Order Order);
 
 /// <summary>
 /// Represents the response for creating an order.
